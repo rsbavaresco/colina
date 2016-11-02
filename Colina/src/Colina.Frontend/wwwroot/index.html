@@ -154,7 +154,8 @@
         		}
         	}
         	document.querySelector("#gravar i").addEventListener("click",function(){
-        		try {
+        	    try {
+        	        recognizer.lang = "pt-BR";
 		            recognizer.start();
 					document.getElementById("status").getElementsByTagName("span")[0].className = "gravando";
 					document.getElementById("status").getElementsByTagName("span")[0].innerHTML = "gravando";
