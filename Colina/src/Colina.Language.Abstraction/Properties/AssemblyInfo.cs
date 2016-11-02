@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Colina.Language")]
+[assembly: AssemblyProduct("Colina.Language.Abstraction")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1411c8a2-a94c-4b3a-941e-2c6c611dad29")]
+[assembly: Guid("da6a8538-ebbb-4a9f-b695-3b73a859ccc5")]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Colina.Abstraction.Bootstrap.Extensions;
 
 namespace Colina.Api
 {
@@ -26,7 +27,10 @@ namespace Colina.Api
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddSingleton(Configuration);
+            services.AddColinaModules(Configuration);
+
+            services.AddMvc();            
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
