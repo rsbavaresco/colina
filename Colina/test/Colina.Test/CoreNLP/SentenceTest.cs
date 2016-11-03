@@ -31,8 +31,15 @@ namespace Colina.Test.CoreNLP
         [Fact]
         public void RecognizeSentenceTest()
         {
+            //arrange
             var recognizer = _provider.GetService<ISentenceRecognizer>();
-            recognizer.Recognize("Move a ball into the hole");
+
+            //act
+            var userAction = recognizer.Recognize("Move a chair one centimeter in front");
+
+            //assert
+            Assert.Equal(userAction.Command.Identifier, "Move");
+            Assert.Equal(userAction.Object.Identifier, Guid.Parse("6b0747d1-9efc-43d2-9c7f-8db33cd01ab7"));
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Colina.Language.Abstraction.Interfaces;
+using Colina.Models.Abstraction.Actions;
 using edu.stanford.nlp.ling;
 using edu.stanford.nlp.pipeline;
-using edu.stanford.nlp.semgraph;
-using edu.stanford.nlp.trees;
 using edu.stanford.nlp.util;
 using java.io;
 using java.util;
@@ -12,58 +11,77 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static edu.stanford.nlp.ling.CoreAnnotations;
-using static edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations;
-using static edu.stanford.nlp.trees.TreeCoreAnnotations;
 
 namespace Colina.Language.Recognizers
 {
     public class SentenceRecognizer : ISentenceRecognizer
     {
         private readonly ILanguageSettings _settings;
-        public SentenceRecognizer(ILanguageSettings settings)
+        private readonly IPartOfSpeechAnalyser _analyser;
+        private IReadOnlyList<string> _annotators => new List<string>()
+        {
+            "tokenize", "ssplit", "pos" //, lemma, ner, parse, dcoref
+        };
+
+        public SentenceRecognizer(ILanguageSettings settings, IPartOfSpeechAnalyser analyser)
         {
             _settings = settings;
+            _analyser = analyser;
         }
 
-        public void Recognize(string sentence)
+        public UserAction Recognize(string sentence)
         {
-            var jarRoot = _settings.TaggerPath;
-
-            var props = new Properties();
-            //props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
-            props.setProperty("annotators", "tokenize ssplit pos");
-            props.setProperty("ner.useSUTime", "0");
-
-            var curDir = Environment.CurrentDirectory;
-            Directory.SetCurrentDirectory(jarRoot);
-            var pipeline = new StanfordCoreNLP(props);
-            Directory.SetCurrentDirectory(curDir);
+            var pipeline = GetCoreNLP();
 
             var annotation = new Annotation(sentence);
+
             pipeline.annotate(annotation);
+            
+            var sentences = (ArrayList) annotation.get(typeof(SentencesAnnotation));
 
-            var sentenceAnnotators = new SentencesAnnotation();
+            var userAction = default(UserAction);
 
-            var sentences = annotation.get(sentenceAnnotators.getClass());
-
-            foreach (CoreMap phrase in (ArrayList)sentences)
+            foreach (CoreMap phrase in sentences)
             {
-                foreach (CoreLabel token in (ArrayList)phrase.get(typeof(TokensAnnotation)))
+                foreach (CoreLabel token in (ArrayList) phrase.get(typeof(TokensAnnotation)))
                 {
+                    var word = token.get(typeof(TextAnnotation)) as string;
+                    var pos = token.get(typeof(PartOfSpeechAnnotation)) as string;
+                    var ne = token.get(typeof(NamedEntityTagAnnotation)) as string;
 
-                    string word = token.get(typeof(TextAnnotation)) as string;
-
-                    string pos = token.get(typeof(PartOfSpeechAnnotation)) as string;
-
-                    string ne = token.get(typeof(NamedEntityTagAnnotation)) as string;
+                    _analyser.Analyse(word, pos, ref userAction);
                 }
-                
-                // this is the parse tree of the current sentence
-                Tree tree = phrase.get(typeof(TreeAnnotation)) as Tree;
-
-                // this is the Stanford dependency graph of the current sentence
-                SemanticGraph dependencies = (SemanticGraph)phrase.get(typeof(CollapsedCCProcessedDependenciesAnnotation));
             }
+            return userAction;
         }
+
+        private StanfordCoreNLP GetCoreNLP()
+        {
+            var taggerRootPath = _settings.TaggerPath;
+            var properties = GetProperties();
+
+            var currentDirectory = Directory.GetCurrentDirectory();
+            Directory.SetCurrentDirectory(taggerRootPath);
+
+            var pipeline = new StanfordCoreNLP(properties);
+            Directory.SetCurrentDirectory(currentDirectory);
+
+            return pipeline;
+        }
+
+        private Properties GetProperties()
+        {
+            var props = new Properties();
+
+            props.setProperty("annotators", string.Join(" ", _annotators));
+            props.setProperty("ner.useSUTime", "0");
+
+            return props;
+        }
+
+        // this is the parse tree of the current sentence
+        //Tree tree = phrase.get(typeof(TreeAnnotation)) as Tree;
+        // this is the Stanford dependency graph of the current sentence
+        //SemanticGraph dependencies = (SemanticGraph)phrase.get(typeof(CollapsedCCProcessedDependenciesAnnotation));
     }
 }

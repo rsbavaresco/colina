@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Colina.Language.Abstraction.Interfaces
 {
-    public interface ISentenceRecognizer
+    public interface IPartOfSpeechAnalyser
     {
-        UserAction Recognize(string sentence);
+        void Analyse(string word, string pos, ref UserAction userAction);
     }
 }
