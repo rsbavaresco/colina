@@ -11,7 +11,8 @@
     "Colina.Design": "1.0.0-*",
 
     "Colina.Language.Abstraction": "1.0.0-*",
-    "Colina.Language.CoreNLP": "1.0.0-*"
+    "Colina.Language.CoreNLP": "1.0.0-*",
+    "Colina.Language.NLPNet": "1.0.0-*"
   },
 
   "frameworks": {

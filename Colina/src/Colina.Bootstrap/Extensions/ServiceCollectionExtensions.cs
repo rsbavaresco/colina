@@ -6,10 +6,6 @@ using Colina.Language.Recognizers;
 using Colina.Language.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Colina.Abstraction.Bootstrap.Extensions
 {
@@ -26,13 +22,13 @@ namespace Colina.Abstraction.Bootstrap.Extensions
 
         public static void AddLanguage(this IServiceCollection services)
         {
-            
             services.AddScoped<BuilderService>();
             services.AddScoped<ISentenceRecognizer, SentenceRecognizer>();
             services.AddScoped<ILanguageSettings, LanguageSettings>();
             services.AddScoped<IPartOfSpeechAnalyser, PartOfSpeechAnalyser>();
             
             services.ConfigureAppSettings<StanfordSettings>(Configuration.GetSection("Stanford"));
+            services.ConfigureAppSettings<Colina.Language.NLPNet.Settings.NLPNetSettings>(Configuration.GetSection("nlpnet"));
         }
 
         public static void AddDesign(this IServiceCollection services)
