@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Colina.Language.Settings
+namespace Colina.Language.CoreNLP.Settings
 {
     public class StanfordSettings
     {

@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static edu.stanford.nlp.ling.CoreAnnotations;
 
-namespace Colina.Language.Recognizers
+namespace Colina.Language.CoreNLP.Recognizers
 {
     public class SentenceRecognizer : ISentenceRecognizer
     {

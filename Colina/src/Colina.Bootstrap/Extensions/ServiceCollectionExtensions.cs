@@ -2,8 +2,9 @@
 using Colina.Infrastructure.Extensions;
 using Colina.Language.Abstraction.Interfaces;
 using Colina.Language.CoreNLP.Analysers;
-using Colina.Language.Recognizers;
-using Colina.Language.Settings;
+using Colina.Language.CoreNLP.Recognizers;
+using Colina.Language.CoreNLP.Settings;
+using Colina.Language.NLPNet.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,7 +29,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
             services.AddScoped<IPartOfSpeechAnalyser, PartOfSpeechAnalyser>();
             
             services.ConfigureAppSettings<StanfordSettings>(Configuration.GetSection("Stanford"));
-            services.ConfigureAppSettings<Colina.Language.NLPNet.Settings.NLPNetSettings>(Configuration.GetSection("nlpnet"));
+            services.ConfigureAppSettings<NLPNetSettings>(Configuration.GetSection("nlpnet"));
         }
 
         public static void AddDesign(this IServiceCollection services)

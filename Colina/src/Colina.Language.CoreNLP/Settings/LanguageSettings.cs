@@ -1,11 +1,10 @@
 ﻿using Colina.Language.Abstraction.Interfaces;
-using Colina.Language.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Colina.Language.Settings
+namespace Colina.Language.CoreNLP.Settings
 {
     public class LanguageSettings : ILanguageSettings
     {
