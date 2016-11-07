@@ -2,12 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/site.min.css" rel="stylesheet" />
+    <title>Colina</title>
+
+    <link href="lib/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <p id="ola">Olá, diga algo:</p>
+    <div ng-app="colinaApp" ng-controller="mainController as controller" layout="column" layout-fill>
+        <md-toolbar layout="row">
+            <h1 class="md-toolbar-tools" flex>Colina</h1>
+            <md-button ws-colina>
+                <i class="fa fa-microphone-slash"></i>
+            </md-button>
+        </md-toolbar>
+
+        <section layout="row" flex>
+
+            <md-sidenav class="md-sidenav-left" md-component-id="leftnav" md-is-locked-open="true" md-whiteframe="4">
+                <md-toolbar>
+                    <h2 class="md-toolbar-tools">Paleta de Objetos</h2>
+                </md-toolbar>
+
+                <md-content layout-padding>
+                    <md-list>
+                        <md-list-item ng-repeat="object in controller.palette">
+                            <img ng-src="{{object.imageUrl}}" class="md-avatar" />
+                            <div class="md-list-item-text">{{object.name}}</div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </md-sidenav>
+
+            <md-content layout="column" flex layout-padding>
+                <md-whitefrane class="md-whiteframe-6dp" layout="column" layout-align="start center" flex>
+                    <md-progress-linear mode="query" ng-show="controller.runningQuery"></md-progress-linear>
+                    <img src="" />
+                </md-whitefrane>
+            </md-content>
+        </section>
+    </div>
+
+
+
+    <!--<p id="ola">Olá, diga algo:</p>
     <div id="transcription"></div>
 
     <button id="gravar">
@@ -17,9 +55,17 @@
     <p id="status">status: <span>aguardando permissão</span></p>
     <span id="ws-unsupported" class="hidden">API not supported</span>
 
-    <div id="img"></div>
+    <div id="img"></div>-->
 
-    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="js/site.min.js"></script>
+
+    <script src="/lib/angular/angular.js"></script>
+    <script src="/lib/angular-aria/angular-aria.js"></script>
+    <script src="/lib/angular-animate/angular-animate.js"></script>
+    <script src="/lib/angular-material/angular-material.js"></script>
+    <script src="/lib/angular-messages/angular-messages.js"></script>
+    <script src="/js/app.module.js"></script>
+    <script src="/js/app.service.js"></script>
+    <script src="/js/app.components.js"></script>
+    <script src="/js/app.controller.js"></script>
 </body>
 </html>

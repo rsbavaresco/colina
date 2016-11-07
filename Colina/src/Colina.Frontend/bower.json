@@ -2,10 +2,7 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.3.6",
-    "jquery": "2.2.3"
-  },
-  "resolutions": {
-    "jquery": ">= 1.7.2"
+    "angular": "^1.5.8",
+    "angular-material": "^1.1.1"
   }
 }
