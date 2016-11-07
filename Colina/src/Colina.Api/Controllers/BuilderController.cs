@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Colina.Application.Services;
+using Colina.Api.InputModels;
 
 namespace Colina.Api.Controllers
 {
@@ -17,9 +18,9 @@ namespace Colina.Api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]BuilderInputModel input)
         {
-            _builderService.Build(value);
+            _builderService.Build(input.Value);
         }
     }
 }

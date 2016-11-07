@@ -17,6 +17,7 @@ namespace Colina.Api
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseUrls("http://localhost:59483/")
                 .Build();
 
             host.Run();

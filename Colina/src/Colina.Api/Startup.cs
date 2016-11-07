@@ -38,6 +38,10 @@ namespace Colina.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors(c => c.WithOrigins("http://localhost:5000")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
+
             app.UseLocalization();
             app.UseMvc();
         }
