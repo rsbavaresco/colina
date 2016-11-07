@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -34,6 +35,7 @@ namespace Colina.Test.NLPNet
         public void RecognizeSentenceTest()
         {
             //arrange
+            CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
             var recognizer = _provider.GetService<ISentenceRecognizer>();
 
             //act

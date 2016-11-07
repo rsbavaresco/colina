@@ -38,6 +38,7 @@ namespace Colina.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseLocalization();
             app.UseMvc();
         }
     }

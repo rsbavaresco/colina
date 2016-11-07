@@ -1,10 +1,10 @@
 ﻿using Colina.Language.Abstraction.Interfaces;
+using Colina.Language.Domain;
+using Colina.Models.Abstraction.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Colina.Models.Abstraction.Actions;
-using Colina.Language.Domain;
 
 namespace Colina.Language.CoreNLP.Analysers
 {
