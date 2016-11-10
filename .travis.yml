@@ -1,5 +1,6 @@
 language: csharp
 solution: Colina.sln
+
 mono:
   - latest
 dotnet: 1.0.0-preview2-003121
@@ -10,3 +11,6 @@ matrix:
       mono: none
       env: DOTNETCORE=1
     - mono: latest
+    
+script:  
+  - ./build.sh
