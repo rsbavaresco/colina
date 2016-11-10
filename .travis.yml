@@ -1,6 +1,7 @@
 language: csharp  
 sudo: required  
 dist: trusty  
+solution: Colina.sln
 env:  
   - CLI_VERSION=latest
 addons:  
