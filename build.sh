@@ -2,4 +2,5 @@
 
 dotnet restore
 
-dotnet build ./colina/src/Colina.Api
+pwd 
+dotnet build ./colina/src/Colina.Api/
