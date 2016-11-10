@@ -3,4 +3,4 @@
 dotnet restore
 
 pwd 
-dotnet build ./colina/src/Colina.Api/
+dotnet build ./src/Colina.Api/
