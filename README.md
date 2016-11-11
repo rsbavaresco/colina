@@ -1,4 +1,4 @@
-# colina [![BuildDoBava](https://img.shields.io/travis/rsbavaresco/colina.svg?maxAge=3600&label=travis)](https://travis-ci.org/andrewlock/NetEscapades.AspNetCore.SecurityHeaders)
+# colina [![Travis](https://img.shields.io/travis/rsbavaresco/colina.svg?maxAge=3600&label=travis)](https://travis-ci.org/rsbavaresco/colina)
 
 Class work undergraduate at Unisinos Multi-Agent System
 
