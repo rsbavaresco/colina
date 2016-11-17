@@ -21,7 +21,8 @@ namespace Colina.Test.CoreNLP
             _configuration = new ConfigurationBuilder()
                                 .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
                                 {
-                                    new KeyValuePair<string, string>("Stanford:ModelsPath", @"..\..\..\..\..\..\resources\stanford-english-corenlp-2016-01-10-models\")
+                                    new KeyValuePair<string, string>("Stanford:ModelsPath", @"..\..\..\..\..\..\resources\stanford-english-corenlp-2016-01-10-models\"),
+                                    new KeyValuePair<string, string>("Ontology:OwlPath", @"..\..\..\..\..\..\resources\\colinaOntology.owl")
                                 }).Build();
 
             var services = new ServiceCollection();
