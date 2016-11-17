@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://github.com/rsbavaresco/colina/ontology#"
+     xml:base="https://github.com/rsbavaresco/colina/ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontology="https://github.com/rsbavaresco/colina/ontology#">
+    <owl:Ontology rdf:about="https://github.com/rsbavaresco/colina/ontology">
+        <owl:versionIRI rdf:resource="https://github.com/rsbavaresco/colina/ontology/1.0.0"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#guid -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#guid"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#constructedBy -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#constructedBy">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Environment"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#draw -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#draw">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Drawing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#identified -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#identified">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Environment"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Session"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#madeOf -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#madeOf">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Drawing"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Point"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#translatedBy -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#translatedBy">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#drawingId -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#drawingId">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Drawing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#englishName -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#englishName">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#height -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#height">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#imageId -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#imageId">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#guid"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#name -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#name">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#path -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#path">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#portugueseName -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#portugueseName">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#positionX -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#positionX">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Point"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#positionY -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#positionY">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Point"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#sessionId -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#sessionId">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#guid"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#width -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/rsbavaresco/colina/ontology#width">
+        <rdfs:domain rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Command -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Command"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Drawing -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Drawing"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Environment -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Environment"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Image -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Image"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Point -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Point"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Session -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Session"/>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Translate -->
+
+    <owl:Class rdf:about="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Chair -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#Chair">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <translatedBy rdf:resource="https://github.com/rsbavaresco/colina/ontology#ChairTranslate"/>
+        <height rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.0</height>
+        <imageId rdf:datatype="http://www.w3.org/2001/XMLSchema#guid">885b719b-8911-4765-be70-fed8ce210039</imageId>
+        <path rdf:datatype="http://www.w3.org/2001/XMLSchema#string">..\..\..\resources\images\chair.png</path>
+        <width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.0</width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#ChairTranslate -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#ChairTranslate">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+        <englishName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">chair</englishName>
+        <imageId rdf:datatype="http://www.w3.org/2001/XMLSchema#guid">885b719b-8911-4765-be70-fed8ce210039</imageId>
+        <portugueseName rdf:datatype="http://www.w3.org/2001/XMLSchema#guid">cadeira</portugueseName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Insert -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#Insert">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+        <name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">insert</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Move -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#Move">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+        <name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">move</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Remove -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#Remove">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Command"/>
+        <name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">remove</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#Table -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#Table">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Image"/>
+        <translatedBy rdf:resource="https://github.com/rsbavaresco/colina/ontology#TableTranslate"/>
+        <height rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.0</height>
+        <imageId rdf:datatype="http://www.w3.org/2001/XMLSchema#guid">91eafecd-b4de-4eb2-b965-51528e5bcd3b</imageId>
+        <path rdf:datatype="http://www.w3.org/2001/XMLSchema#string">..\..\..\resources\images\table.png</path>
+        <width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://github.com/rsbavaresco/colina/ontology#TableTranslate -->
+
+    <owl:NamedIndividual rdf:about="https://github.com/rsbavaresco/colina/ontology#TableTranslate">
+        <rdf:type rdf:resource="https://github.com/rsbavaresco/colina/ontology#Translate"/>
+        <englishName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">table</englishName>
+        <imageId rdf:datatype="http://www.w3.org/2001/XMLSchema#guid">91eafecd-b4de-4eb2-b965-51528e5bcd3b</imageId>
+        <portugueseName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mesa</portugueseName>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+
