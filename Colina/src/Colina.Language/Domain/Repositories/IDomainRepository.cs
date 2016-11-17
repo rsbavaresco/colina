@@ -7,6 +7,6 @@ namespace Colina.Language.Domain.Repositories
 {
     public interface IDomainRepository
     {
-        void RetrieveData();
+        void RetrieveCommands();
     }
 }
