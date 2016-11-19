@@ -1,4 +1,4 @@
-# colina 
+# colina  [![Build status](https://ci.appveyor.com/api/projects/status/hq57w85r7fwvn1mf?svg=true)](https://ci.appveyor.com/project/rsbavaresco/colina)
 
 Class work undergraduate at Unisinos Multi-Agent System
 
