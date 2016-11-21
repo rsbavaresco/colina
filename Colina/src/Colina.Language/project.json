@@ -1,8 +1,7 @@
 ﻿{
   "version": "1.0.0-*",
 
-  "dependencies": {
-    "dotNetRDF": "1.0.12",
+  "dependencies": {    
     "NETStandard.Library": "1.6.0",
     "Colina.Infrastructure": "1.0.0-*"    
   },

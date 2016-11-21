@@ -1,5 +1,6 @@
 ﻿using Colina.Abstraction.Bootstrap.Extensions;
 using Colina.Language.Abstraction.Interfaces;
+using Colina.Language.Domain.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,11 +23,12 @@ namespace Colina.Test.CoreNLP
                                 .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
                                 {
                                     new KeyValuePair<string, string>("Stanford:ModelsPath", @"..\..\..\..\..\..\resources\stanford-english-corenlp-2016-01-10-models\"),
-                                    new KeyValuePair<string, string>("Ontology:OwlPath", @"..\..\..\..\..\..\resources\\colinaOntology.owl")
+                                    new KeyValuePair<string, string>("Ontology:OwlPath", @"..\..\..\..\..\..\resources\\colinaOntology.owl"),
+                                    new KeyValuePair<string, string>("NoSql:ConnectionString", "mongodb://localhost:27017/colina")
                                 }).Build();
 
             var services = new ServiceCollection();
-            services.AddColinaModules(_configuration);
+            services.AddColinaModules(_configuration);            
             _provider = services.BuildServiceProvider();
         }
 
@@ -35,6 +37,9 @@ namespace Colina.Test.CoreNLP
         {
             //arrange
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            var repository = _provider.GetRequiredService<IDomainRepository>();
+            repository.CreateDataSetCache();
+
             var recognizer = _provider.GetService<ISentenceRecognizer>();
 
             //act

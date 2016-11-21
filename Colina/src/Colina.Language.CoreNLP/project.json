@@ -4,11 +4,13 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
-    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0", 
+    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
     "Colina.Language.Abstraction": "1.0.0-*",
     "Colina.Language": "1.0.0-*",
     "Colina.Infrastructure": "1.0.0-*",
-    "Stanford.NLP.CoreNLP": "3.6.0"
+    "Colina.Data": "1.0.0-*",
+    "Stanford.NLP.CoreNLP": "3.6.0",
+    "Microsoft.Extensions.Caching.Abstractions": "1.0.0"
   },
 
   "frameworks": {

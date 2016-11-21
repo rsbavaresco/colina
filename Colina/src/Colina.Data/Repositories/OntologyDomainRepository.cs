@@ -10,17 +10,17 @@ using VDS.RDF.Query;
 using VDS.RDF.Query.Datasets;
 using VDS.RDF.Writing.Formatting;
 
-namespace Colina.Language.Repositories
+namespace Colina.Data.Repositories
 {
-    public class DomainRepository : IDomainRepository
+    public class OntologyDomainRepository : IDomainRepository
     {
         private readonly OntologySettings _ontologySettings;
-        public DomainRepository(OntologySettings ontologySettings)
+        public OntologyDomainRepository(OntologySettings ontologySettings)
         {
             _ontologySettings = ontologySettings;
         }
 
-        public void RetrieveCommands()
+        public void CreateDataSetCache()
         {
             IGraph graph = new Graph();            
             RdfXmlParser rdfParser = new RdfXmlParser();

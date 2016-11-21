@@ -44,6 +44,8 @@ namespace Colina.Api
 
             app.UseLocalization();
             app.UseMvc();
+
+            app.RetrieveData();
         }
     }
 }

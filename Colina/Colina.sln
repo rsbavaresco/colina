@@ -46,6 +46,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Colina.Language", "src\Coli
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Colina.Language.NLPNet", "src\Colina.Language.NLPNet\Colina.Language.NLPNet.xproj", "{95FF3E24-2CA5-496C-B5EC-34234C8680B3}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Colina.Data", "src\Colina.Data\Colina.Data.xproj", "{803C1632-24A1-420D-A875-6086F39CE21E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{95FF3E24-2CA5-496C-B5EC-34234C8680B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95FF3E24-2CA5-496C-B5EC-34234C8680B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95FF3E24-2CA5-496C-B5EC-34234C8680B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{803C1632-24A1-420D-A875-6086F39CE21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{803C1632-24A1-420D-A875-6086F39CE21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{803C1632-24A1-420D-A875-6086F39CE21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{803C1632-24A1-420D-A875-6086F39CE21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,5 +132,6 @@ Global
 		{9E188B4E-7AA2-4D19-A085-2B1EA57053DC} = {02077890-55F4-475E-84A4-5E344E167BD4}
 		{817351A1-0F4F-4137-A312-E40C418F0623} = {125BBEEB-27C0-444D-847F-43CF5F13DD72}
 		{95FF3E24-2CA5-496C-B5EC-34234C8680B3} = {125BBEEB-27C0-444D-847F-43CF5F13DD72}
+		{803C1632-24A1-420D-A875-6086F39CE21E} = {125BBEEB-27C0-444D-847F-43CF5F13DD72}
 	EndGlobalSection
 EndGlobal
