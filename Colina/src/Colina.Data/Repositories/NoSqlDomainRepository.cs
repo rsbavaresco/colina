@@ -41,8 +41,8 @@ namespace Colina.Data.Repositories
             var images = imagesTask.Result;
 
             _cache.Set("commands", commands);
-            _cache.Set("images", images);
-
+            _cache.Set("images", images);            
+            
             //var query = Query<Command>.Exists(c => !string.IsNullOrEmpty(c.PtBR));
         }
 

@@ -39,9 +39,9 @@ namespace Colina.Language.CoreNLP.Analysers
                     {
                         var images = _cache.Get("images") as List<ImageDto>;
 
-                        var index = EnglishDomain.AvaiablePaletteObjects.ToList().IndexOf(word.ToLower());
-                        if (index >= 0)
-                            userAction.ChangeObject(EnglishDomain.AvaiablePaletteObjectsIds[index]);
+                        var uniqueId = images.Where(i => i.EnUS.Equals(word.ToLower())).Select(i => i.UniqueId).FirstOrDefault();
+                        if (!Guid.Empty.Equals(uniqueId))
+                            userAction.ChangeObject(uniqueId);
                         break;
                     }
                 
