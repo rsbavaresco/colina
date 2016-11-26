@@ -1,6 +1,7 @@
 ﻿using Colina.Abstraction.Bootstrap.Providers;
 using Colina.Application.Services;
 using Colina.Data.Repositories;
+using Colina.Data.Repositories.NoSql;
 using Colina.Data.Settings;
 using Colina.Infrastructure.DataAccess;
 using Colina.Infrastructure.Extensions;
@@ -34,6 +35,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
             services.AddScoped<BuilderService>();
             services.AddScoped<ITypeProvider, TypeProvider>();
             services.AddScoped<IDomainRepository, NoSqlDomainRepository>();
+            services.AddScoped<EnvironmentNoSqlRepository>();
             services.AddScoped(TypeProviderFactory<ISentenceRecognizer>);
             services.AddScoped(TypeProviderFactory<ILanguageSettings>);            
             services.AddScoped(TypeProviderFactory<IPartOfSpeechAnalyser>);
