@@ -10,6 +10,8 @@ namespace Colina.Data.Repositories.DataTransfersObjects
     public class ImageDto
     {
         public ObjectId Id { get; set; }
+        [BsonElement("uniqueId")]
+        public Guid UniqueId { get; set; }
         [BsonElement("path")]
         public string Path { get; set; }
         [BsonElement("name")]

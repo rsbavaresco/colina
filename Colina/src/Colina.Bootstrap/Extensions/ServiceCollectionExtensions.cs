@@ -2,6 +2,9 @@
 using Colina.Application.Services;
 using Colina.Data.Repositories;
 using Colina.Data.Settings;
+using Colina.Design.Abstraction.Interfaces;
+using Colina.Design.Drawings;
+using Colina.Design.Settings;
 using Colina.Infrastructure.DataAccess;
 using Colina.Infrastructure.Extensions;
 using Colina.Language.Abstraction.Interfaces;
@@ -18,6 +21,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
     {        
         public static void AddColinaModules(this IServiceCollection services, IConfigurationRoot configuration)
         {
+            services.ConfigureAppSettings<DesignSettings>(configuration.GetSection("Design"));
             services.ConfigureAppSettings<OntologySettings>(configuration.GetSection("Ontology"));
             services.ConfigureAppSettings<NoSqlSettings>(configuration.GetSection("NoSql"));
 
@@ -46,8 +50,9 @@ namespace Colina.Abstraction.Bootstrap.Extensions
         }
 
         private static void AddDesign(this IServiceCollection services)
-        {
-
+        {            
+            services.AddScoped<IImageDrawer, ImageDrawer>();
+            services.AddScoped<IImageReader, ImageReader>();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Colina.Models.Abstraction.Designs
     {
         public Position Position { get; private set; }
         public PaletteObject Object { get; private set; }
-
+        
         public Drawing(Position position, PaletteObject paletteObject)
         {
             if (position == null) throw new ArgumentNullException(nameof(position));
