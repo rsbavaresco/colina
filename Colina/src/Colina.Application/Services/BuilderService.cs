@@ -2,10 +2,7 @@
 using Colina.Language.Abstraction.Interfaces;
 using Colina.Language.Factories;
 using Colina.Language.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Colina.Models.Abstraction.Designs;
 
 namespace Colina.Application.Services
 {
@@ -25,10 +22,15 @@ namespace Colina.Application.Services
         public BuilderViewModel Build(string sentence)
         {
             var userAction = _sentenceRecognizer.Recognize(sentence);
-
             var drawing = DrawingFactory.Create(userAction);
 
-            _drawer.Draw(drawing);
+            // TODO: Gerar arquivo .col
+
+            // TODO: Manipular Environment do usuário (por sessão)
+            var environment = new Environment();
+            environment.AddDrawing(drawing);
+            
+            _drawer.Draw(environment);
 
             var bytes = _reader.Read("result.png");
 

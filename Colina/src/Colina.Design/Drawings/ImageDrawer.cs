@@ -1,11 +1,7 @@
 ﻿using Colina.Design.Abstraction.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Colina.Design.Settings;
 using Colina.Models.Abstraction.Designs;
 using System.Diagnostics;
-using Colina.Design.Settings;
 
 namespace Colina.Design.Drawings
 {
@@ -21,7 +17,7 @@ namespace Colina.Design.Drawings
             _settings = settings;
         }
 
-        public void Draw(Drawing drawing)
+        public void Draw(Environment environment)
         {
             RunDrawer();
         }
