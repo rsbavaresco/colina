@@ -16,6 +16,20 @@ namespace Colina.Language.Domain.Services
             _environmentRepository = environmentRepository;
         }
 
+        public Position GetPaletteObjectPosition(System.Guid userSession, System.Guid paletteObject)
+        {
+            var environment = _environmentRepository.GetByUserSession(userSession);
+
+            if (environment == null)
+                return null;
+
+            var envItem = environment.Items.SingleOrDefault(x => x.ImageUniqueId == paletteObject);
+            if (envItem == null)
+                return null;
+
+            return new Position(envItem.PositionX, envItem.PositionY);
+        }
+
         public Environment Handle(System.Guid userSession, Drawing drawing)
         {
             bool isNew;

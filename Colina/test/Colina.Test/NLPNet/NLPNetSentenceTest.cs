@@ -39,7 +39,7 @@ namespace Colina.Test.NLPNet
             var recognizer = _provider.GetService<ISentenceRecognizer>();
 
             //act
-            var userAction = recognizer.Recognize("Mover a cadeira um centimetro para frente");
+            var userAction = recognizer.Recognize("Mover cadeira 10 pixels para direita");
 
             //assert
             Assert.Equal(userAction.Command.Identifier, "Mover");

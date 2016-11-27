@@ -1,41 +1,78 @@
-﻿using System;
-using Colina.Models.Abstraction.Actions;
+﻿using Colina.Language.Abstraction.Interfaces;
+using Colina.Models.Abstraction.Designs;
+using System;
 
 namespace Colina.Language.Factories
 {
-    public static class DrawingFactory
+    public class DrawingFactory
     {
-        public static Models.Abstraction.Designs.Drawing Create(UserAction userAction)
+        private readonly IEnvironmentService _environmentService;
+        private Position _existingPaletteObjectPosition;
+
+        public DrawingFactory(IEnvironmentService environmentService)
+        {
+            _environmentService = environmentService;
+        }
+
+        public Drawing Create(Models.Abstraction.Actions.UserAction userAction, Guid userSession)
         {
             if (userAction == null)
                 throw new ArgumentNullException(nameof(userAction));
 
+            _existingPaletteObjectPosition = _environmentService.GetPaletteObjectPosition(userSession, userAction.Object.Identifier);
+
             var position = GetPosition(userAction);
 
-            return new Models.Abstraction.Designs.Drawing(position, userAction.Object);
+            return new Drawing(position, userAction.Object);
         }
 
-        private static Models.Abstraction.Designs.Position GetPosition(UserAction userAction)
+        private Position GetPosition(Models.Abstraction.Actions.UserAction userAction)
         {
             if (userAction.Position == null)
-                return new Models.Abstraction.Designs.Position(0, 0);
+                return GetDefaultPosition();
 
-            if (userAction.Position is RelativePosition)
-                return GetRelativePosition(userAction.Position as RelativePosition);
-            else if (userAction.Position is AbsolutePosition)
-                return GetAbsolutePosition(userAction.Position as AbsolutePosition);
+            if (userAction.Position is Models.Abstraction.Actions.RelativePosition)
+                return GetRelativePosition(userAction.Position as Models.Abstraction.Actions.RelativePosition);
+            else if (userAction.Position is Models.Abstraction.Actions.AbsolutePosition)
+                return GetAbsolutePosition(userAction.Position as Models.Abstraction.Actions.AbsolutePosition);
             else
                 throw new ArgumentException(nameof(userAction));
         }
 
-        private static Models.Abstraction.Designs.Position GetRelativePosition(RelativePosition position)
+        private Position GetRelativePosition(Models.Abstraction.Actions.RelativePosition position)
+        {
+            if (_existingPaletteObjectPosition != null)
+            {
+                switch (position.Direction)
+                {
+                    case Models.Abstraction.Actions.Direction.Left:
+                        return new Position(_existingPaletteObjectPosition.X - position.Value, _existingPaletteObjectPosition.Y);
+
+                    case Models.Abstraction.Actions.Direction.Right:
+                        return new Position(_existingPaletteObjectPosition.X + position.Value, _existingPaletteObjectPosition.Y);
+
+                    case Models.Abstraction.Actions.Direction.Up:
+                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y - position.Value);
+
+                    case Models.Abstraction.Actions.Direction.Down:
+                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y + position.Value);
+
+                    default:
+                        return GetDefaultPosition();
+                }
+            }
+
+            return GetDefaultPosition();
+        }
+
+        private static Position GetAbsolutePosition(Models.Abstraction.Actions.AbsolutePosition position)
         {
             throw new NotImplementedException();
         }
 
-        private static Models.Abstraction.Designs.Position GetAbsolutePosition(AbsolutePosition position)
+        private static Position GetDefaultPosition()
         {
-            throw new NotImplementedException();
+            return new Position(0, 0);
         }
     }
 }

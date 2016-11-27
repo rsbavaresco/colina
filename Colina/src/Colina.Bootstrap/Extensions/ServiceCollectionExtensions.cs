@@ -12,6 +12,7 @@ using Colina.Language.Abstraction.Interfaces;
 using Colina.Language.CoreNLP.Extensions;
 using Colina.Language.Domain.Repositories;
 using Colina.Language.Domain.Services;
+using Colina.Language.Factories;
 using Colina.Language.NLPNet.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
         private static void AddLanguage(this IServiceCollection services)
         {            
             services.AddScoped<BuilderService>();
+            services.AddScoped<DrawingFactory>();
             services.AddScoped<ITypeProvider, TypeProvider>();
             services.AddScoped<IDomainRepository, NoSqlDomainRepository>();
             services.AddScoped<IEnvironmentRepository, EnvironmentNoSqlRepository>();

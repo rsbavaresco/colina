@@ -29,6 +29,11 @@ namespace Colina.Language.NLPNet.Analysers
                         userAction.ChangeObject(PortugueseDomain.AvaiablePaletteObjectsIds[index]);
                     break;
 
+                case "NUM":
+                    var number = Convert.ToDouble(word);
+                    userAction.ChangeRelativePosition("px", number, "Center");
+                    break;
+
                 ///... TODO
                 default: break;
             }
