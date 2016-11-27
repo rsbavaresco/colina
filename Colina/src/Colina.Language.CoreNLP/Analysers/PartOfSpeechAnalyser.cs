@@ -39,13 +39,36 @@ namespace Colina.Language.CoreNLP.Analysers
 
                         var uniqueId = images.Where(i => i.EnUS.Equals(word.ToLower())).Select(i => i.UniqueId).FirstOrDefault();
                         if (!Guid.Empty.Equals(uniqueId))
+                        {
                             userAction.ChangeObject(uniqueId);
+                            return;
+                        }
+
+                        TryRecognizeDirection(word, ref userAction);
                         break;
                     }
-                
-                ///... TODO
+
+                case "CD":
+                    {
+                        userAction.ChangeRelativePosition(double.Parse(word), default(Direction));
+                        break;
+                    }
+
+                case "RB":
+                case "IN":
+                    {
+                        TryRecognizeDirection(word, ref userAction);
+                        break;
+                    }                
                 default: break;
             }            
+        }
+
+        private void TryRecognizeDirection(string word, ref UserAction userAction)
+        {
+            Direction direction = default(Direction);
+            if (Enum.TryParse(word, true, out direction))
+                userAction.ChangeRelativePositionDirection(direction);
         }
     }    
 }

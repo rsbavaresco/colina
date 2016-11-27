@@ -21,5 +21,10 @@ namespace Colina.Models.Abstraction.Actions
         {
 
         }
+
+        public void ChangeValue(double value)
+        {
+            Value = value;
+        }
     }
 }
