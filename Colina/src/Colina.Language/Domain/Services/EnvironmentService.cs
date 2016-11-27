@@ -18,28 +18,16 @@ namespace Colina.Language.Domain.Services
 
         public Environment Handle(System.Guid userSession, Drawing drawing)
         {
-            var environmentDto = _environmentRepository.GetByUserSession(userSession);
+            bool isNew;
+            var environmentDto = CreateIfNotExists(userSession, out isNew);
 
-            var envItem = environmentDto.Items.SingleOrDefault(x => x.ImageUniqueId == drawing.Object.Identifier);
+            CreateOrUpdateEnvironmentItem(ref environmentDto, drawing);
 
-            if (envItem == null) // Novo objeto
-            {
-                var newItem = EnvironmentItemDto.Create(
-                    drawing.Object.Identifier, 
-                    drawing.Position.X, 
-                    drawing.Position.Y
-                );
-                environmentDto.AddItem(newItem);
-            }
-            else // Objeto da paleta já utilizado, então atualizam-se suas posições
-            {
-                envItem.PositionX = drawing.Position.X;
-                envItem.PositionY = drawing.Position.Y;
-            }
-
-            // Atualiza o Environment
-            _environmentRepository.Update(environmentDto);
-
+            if (isNew)
+                _environmentRepository.Insert(environmentDto);
+            else
+                _environmentRepository.Update(environmentDto);
+            
             return new Environment(environmentDto.SessionId)
             {
                 Drawings = (from ei in environmentDto.Items
@@ -49,6 +37,38 @@ namespace Colina.Language.Domain.Services
                                 new PaletteObject(ei.ImageUniqueId)
                             )).ToList()
             };
+        }
+
+        private EnvironmentDto CreateIfNotExists(System.Guid userSession, out bool isNew)
+        {
+            var environmentDto = _environmentRepository.GetByUserSession(userSession);
+            isNew = environmentDto == null;
+            return environmentDto ?? EnvironmentDto.Create(userSession);
+        }
+
+        private void CreateOrUpdateEnvironmentItem(ref EnvironmentDto environment, Drawing drawing)
+        {
+            var envItem = GetEnvironmentItemByPaletteObject(environment, drawing.Object.Identifier);
+
+            if (envItem == null) // Novo objeto
+            {
+                var newItem = EnvironmentItemDto.Create(
+                    drawing.Object.Identifier,
+                    drawing.Position.X,
+                    drawing.Position.Y
+                );
+                environment.AddItem(newItem);
+            }
+            else // Objeto da paleta já utilizado, então atualizam-se suas posições
+            {
+                envItem.PositionX = drawing.Position.X;
+                envItem.PositionY = drawing.Position.Y;
+            }
+        }
+
+        private EnvironmentItemDto GetEnvironmentItemByPaletteObject(EnvironmentDto environment, System.Guid identifier)
+        {
+            return environment.Items.SingleOrDefault(x => x.ImageUniqueId == identifier);
         }
     }
 }

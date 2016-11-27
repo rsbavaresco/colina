@@ -24,11 +24,8 @@ namespace Colina.Application.Services
             _environmentService = environmentService;
         }
 
-        public BuilderViewModel Build(string sentence)
+        public BuilderViewModel Build(Guid sessionId, string sentence)
         {
-            // TODO: Definir de onde virá o SessionId, do input ou cabeçalho
-            Guid sessionId = Guid.Empty;
-
             // Reconhece o comando do usuário
             var userAction = _sentenceRecognizer.Recognize(sentence);
 

@@ -11,6 +11,7 @@ using Colina.Infrastructure.Extensions;
 using Colina.Language.Abstraction.Interfaces;
 using Colina.Language.CoreNLP.Extensions;
 using Colina.Language.Domain.Repositories;
+using Colina.Language.Domain.Services;
 using Colina.Language.NLPNet.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
             services.AddScoped<ITypeProvider, TypeProvider>();
             services.AddScoped<IDomainRepository, NoSqlDomainRepository>();
             services.AddScoped<IEnvironmentRepository, EnvironmentNoSqlRepository>();
+            services.AddScoped<IEnvironmentService, EnvironmentService>();
             services.AddScoped(TypeProviderFactory<ISentenceRecognizer>);
             services.AddScoped(TypeProviderFactory<ILanguageSettings>);            
             services.AddScoped(TypeProviderFactory<IPartOfSpeechAnalyser>);

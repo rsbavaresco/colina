@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Colina.Api.InputModels;
 using Colina.Application.Services;
-using Colina.Api.InputModels;
+using Colina.Infrastructure.Constants;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Colina.Api.Controllers
 {
@@ -18,9 +16,18 @@ namespace Colina.Api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]BuilderInputModel input)
+        public IActionResult Post([FromBody]BuilderInputModel input)
         {
-            _builderService.Build(input.Value);
+            if (!Request.Headers.ContainsKey(AuthConstants.SessionHeaderKey))
+                return Unauthorized();
+
+            Guid sessionId;
+            if (!Guid.TryParse(Request.Headers[AuthConstants.SessionHeaderKey], out sessionId))
+                return BadRequest();
+
+            var result = _builderService.Build(sessionId, input.Value);
+
+            return File(result.Content, "image/png");
         }
     }
 }

@@ -59,6 +59,7 @@ namespace Colina.Test.CoreNLP
         public void BuilderTest()
         {
             //arrange
+            var sessionId = Guid.Parse("82c11c88-207c-524e-91f7-454840232cfa");
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
             var repository = _provider.GetRequiredService<IDomainRepository>();
             repository.CreateDataSetCache();
@@ -66,7 +67,7 @@ namespace Colina.Test.CoreNLP
             var service = _provider.GetService<BuilderService>();
 
             //act
-            var builderContent = service.Build("Move a chair one centimeter in front");           
+            var builderContent = service.Build(sessionId, "Move a chair one centimeter in front");
         }
     }
 }
