@@ -50,7 +50,7 @@ namespace Colina.Language.CoreNLP.Analysers
 
                 case "CD":
                     {
-                        userAction.ChangeRelativePosition(double.Parse(word), default(Direction));
+                        userAction.ChangeRelativePosition(int.Parse(word), default(Direction));
                         break;
                     }
 

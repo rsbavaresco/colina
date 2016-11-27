@@ -27,15 +27,46 @@ namespace Colina.Language.NLPNet.Analysers
                     var index = PortugueseDomain.AvaiablePaletteObjects.ToList().IndexOf(word.ToLower());
                     if (index >= 0)
                         userAction.ChangeObject(PortugueseDomain.AvaiablePaletteObjectsIds[index]);
+                    else
+                    {
+                        Direction direction;
+                        TryRecognizeDirection(word, out direction);
+                        userAction.ChangeRelativePositionDirection(direction);
+                    }
+                        
                     break;
 
                 case "NUM":
-                    var number = Convert.ToDouble(word);
-                    userAction.ChangeRelativePosition("px", number, "Center");
+                    userAction.ChangeRelativePosition(int.Parse(word), default(Direction));
                     break;
 
-                ///... TODO
                 default: break;
+            }
+        }
+
+        private void TryRecognizeDirection(string word, out Direction direction)
+        {
+            switch (word.ToLower())
+            {
+                case "direita":
+                    direction = Direction.Right;
+                    break;
+
+                case "esquerda":
+                    direction = Direction.Left;
+                    break;
+
+                case "cima":
+                    direction = Direction.Up;
+                    break;
+
+                case "baixo":
+                    direction = Direction.Down;
+                    break;
+
+                default:
+                    direction = default(Direction);
+                    break;
             }
         }
     }

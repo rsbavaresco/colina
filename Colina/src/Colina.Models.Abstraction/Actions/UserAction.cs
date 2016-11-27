@@ -29,7 +29,7 @@ namespace Colina.Models.Abstraction.Actions
             Position = new AbsolutePosition(quadrant, (Direction)Enum.Parse(typeof(Direction), direction));
         }
 
-        public void ChangeRelativePosition(double value, Direction direction)
+        public void ChangeRelativePosition(int value, Direction direction)
         {
             var current = (Position as RelativePosition);
 
@@ -46,7 +46,7 @@ namespace Colina.Models.Abstraction.Actions
         public void ChangeRelativePositionDirection(Direction direction)
         {
             if (Position == null)
-                Position = new RelativePosition("pixels", default(double), direction);
+                Position = new RelativePosition("pixels", default(int), direction);
             else
                 Position.ChangeDirection(direction);
         }

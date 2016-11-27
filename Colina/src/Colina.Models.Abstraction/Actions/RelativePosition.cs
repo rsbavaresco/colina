@@ -8,9 +8,9 @@ namespace Colina.Models.Abstraction.Actions
     public class RelativePosition : Position
     {
         public string Unity { get; set; }
-        public double Value { get; set; }
+        public int Value { get; set; }
 
-        public RelativePosition(string unity, double value, Direction direction) 
+        public RelativePosition(string unity, int value, Direction direction) 
             : base(direction)
         {
             Unity = unity;
@@ -22,7 +22,7 @@ namespace Colina.Models.Abstraction.Actions
 
         }
 
-        public void ChangeValue(double value)
+        public void ChangeValue(int value)
         {
             Value = value;
         }
