@@ -1,8 +1,5 @@
 ﻿using Colina.Models.Abstraction.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Colina.Models.Abstraction.Designs
 {
@@ -10,8 +7,9 @@ namespace Colina.Models.Abstraction.Designs
     {
         public Position Position { get; private set; }
         public PaletteObject Object { get; private set; }
-        
-        public Drawing(Position position, PaletteObject paletteObject)
+        public bool IsDeleted { get; private set; }
+
+        public Drawing(Position position, PaletteObject paletteObject, bool isDeleted = false)
         {
             if (position == null) throw new ArgumentNullException(nameof(position));
             if (paletteObject == null) throw new ArgumentNullException(nameof(paletteObject));
@@ -20,7 +18,7 @@ namespace Colina.Models.Abstraction.Designs
             Object = paletteObject;
         }
 
-        public Drawing(int x, int y, PaletteObject paletteObject)
+        public Drawing(int x, int y, PaletteObject paletteObject, bool isDeleted = false)
         {            
             if (paletteObject == null) throw new ArgumentNullException(nameof(paletteObject));
 

@@ -19,6 +19,15 @@ namespace Colina.Language.Factories
             if (userAction == null)
                 throw new ArgumentNullException(nameof(userAction));
 
+            if (userAction.Command == null)
+                throw new ArgumentException("Command is null", nameof(userAction));
+
+            // TODO: Refatorar forma de tratar casos de exclusão de objetos do ambiente
+            if (userAction.Command.Identifier.ToLower().Contains("remove"))
+            {
+                return new Drawing(GetDefaultPosition(), userAction.Object, true);
+            }
+
             _existingPaletteObjectPosition = _environmentService.GetPaletteObjectPosition(userSession, userAction.Object.Identifier);
 
             var position = GetPosition(userAction);

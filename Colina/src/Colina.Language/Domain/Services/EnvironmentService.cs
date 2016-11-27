@@ -64,7 +64,7 @@ namespace Colina.Language.Domain.Services
         {
             var envItem = GetEnvironmentItemByPaletteObject(environment, drawing.Object.Identifier);
 
-            if (envItem == null) // Novo objeto
+            if (envItem == null && !drawing.IsDeleted) // Novo objeto
             {
                 var newItem = EnvironmentItemDto.Create(
                     drawing.Object.Identifier,
@@ -73,10 +73,17 @@ namespace Colina.Language.Domain.Services
                 );
                 environment.AddItem(newItem);
             }
-            else // Objeto da paleta já utilizado, então atualizam-se suas posições
+            else // Objeto da paleta já utilizado
             {
-                envItem.PositionX = drawing.Position.X;
-                envItem.PositionY = drawing.Position.Y;
+                if (drawing.IsDeleted)
+                {
+                    environment.RemoveItem(envItem);
+                }
+                else
+                {
+                    envItem.PositionX = drawing.Position.X;
+                    envItem.PositionY = drawing.Position.Y;
+                }
             }
         }
 

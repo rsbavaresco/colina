@@ -38,8 +38,6 @@ namespace Colina.Application.Services
 
             // Compõe o Environment de acordo com o Drawing
             var environment = _environmentService.Handle(sessionId, drawing);
-
-            // TODO: Tratar casos de exclusão de objetos do ambiente
             
             // Desenha o ambiente
             _drawer.Draw(environment);
