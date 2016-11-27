@@ -1,7 +1,10 @@
 ﻿using Colina.Design.Abstraction.Interfaces;
 using Colina.Design.Settings;
 using Colina.Models.Abstraction.Designs;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace Colina.Design.Drawings
 {
@@ -12,6 +15,8 @@ namespace Colina.Design.Drawings
             "./run.sh -pathToImages {0} -pathToVector {1} -pathToObjects {2};'";
 
         private readonly DesignSettings _settings;
+        private Environment _environment;        
+
         public ImageDrawer(DesignSettings settings)
         {
             _settings = settings;
@@ -19,13 +24,34 @@ namespace Colina.Design.Drawings
 
         public void Draw(Environment environment)
         {
+            _environment = environment;
+
+            CreateDrawMetadata();
             RunDrawer();
+        }
+
+        private void CreateDrawMetadata()
+        {
+            var serializable = new Dictionary<System.Guid, object>();
+
+            foreach (var obj in _environment.Drawings)
+                serializable.Add(obj.Object.Identifier, obj.Position);
+
+            var content = JsonConvert.SerializeObject(serializable, Formatting.Indented);
+
+            var colFilePath = $"{_settings.Windows.PathToData}\\{_environment.SessionId}.col";
+            
+            File.WriteAllText(colFilePath, content);
         }
 
         private void RunDrawer()
         {
-            var command = string.Format(_runnable, _settings.Unix.PathToImages,
-                $"{_settings.Unix.PathToData}/objVector.col", _settings.Unix.PathToObjects);
+            var colFilePath = $"{_settings.Unix.PathToData}/{_environment.SessionId}.col";
+
+            var command = string.Format(_runnable, 
+                _settings.Unix.PathToImages, 
+                colFilePath, 
+                _settings.Unix.PathToObjects);
 
             var processInfo = new ProcessStartInfo();
             processInfo.FileName = @"C:\Windows\System32\cmd.exe";            

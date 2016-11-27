@@ -36,14 +36,11 @@ namespace Colina.Application.Services
             var environment = _environmentService.Handle(sessionId, drawing);
 
             // TODO: Tratar casos de exclusão de objetos do ambiente
-
-            // TODO: Gerar arquivo .col a partir do Environment
-
-
+            
             // TODO: Desenhar o ambiente informando o arquivo .col para o drawer
             _drawer.Draw(environment);
 
-            var bytes = _reader.Read("result.png");
+            var bytes = _reader.Read($"{environment.SessionId}.col");
 
             return new BuilderViewModel(bytes, drawing.Object.Identifier);
         }

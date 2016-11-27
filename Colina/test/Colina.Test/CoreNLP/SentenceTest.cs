@@ -29,7 +29,8 @@ namespace Colina.Test.CoreNLP
                                     new KeyValuePair<string, string>("Design:Unix:PathToImages", "/mnt/f/tools/torch/distro/myscripts/images"),
                                     new KeyValuePair<string, string>("Design:Unix:PathToObjects", "/mnt/f/tools/torch/distro/myscripts/objects"),
                                     new KeyValuePair<string, string>("Design:Unix:PathToData", "/mnt/f/tools/torch/distro/myscripts/data"),
-                                    new KeyValuePair<string, string>("Design:Windows:PathToImages", "F:\\tools\\torch\\distro\\myscripts\\images")
+                                    new KeyValuePair<string, string>("Design:Windows:PathToImages", "F:\\tools\\torch\\distro\\myscripts\\images"),
+                                    new KeyValuePair<string, string>("Design:Windows:PathToData", "F:\\tools\\torch\\distro\\myscripts\\data")
                                 }).Build();
 
             var services = new ServiceCollection();
