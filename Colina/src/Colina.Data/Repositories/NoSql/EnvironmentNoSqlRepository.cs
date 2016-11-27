@@ -1,13 +1,13 @@
-﻿using Colina.Data.Repositories.DataTransfersObjects;
-using Colina.Data.Settings;
-using MongoDB.Bson;
+﻿using Colina.Data.Settings;
+using Colina.Language.Domain.Repositories;
+using Colina.Models.Abstraction.DataTransferObjects;
 using MongoDB.Driver;
 using System;
 using System.Linq;
 
 namespace Colina.Data.Repositories.NoSql
 {
-    public class EnvironmentNoSqlRepository
+    public class EnvironmentNoSqlRepository : IEnvironmentRepository
     {
         private readonly IMongoCollection<EnvironmentDto> _environmentsCollection;
 

@@ -39,7 +39,7 @@ namespace Colina.Abstraction.Bootstrap.Extensions
             services.AddScoped<BuilderService>();
             services.AddScoped<ITypeProvider, TypeProvider>();
             services.AddScoped<IDomainRepository, NoSqlDomainRepository>();
-            services.AddScoped<EnvironmentNoSqlRepository>();
+            services.AddScoped<IEnvironmentRepository, EnvironmentNoSqlRepository>();
             services.AddScoped(TypeProviderFactory<ISentenceRecognizer>);
             services.AddScoped(TypeProviderFactory<ILanguageSettings>);            
             services.AddScoped(TypeProviderFactory<IPartOfSpeechAnalyser>);

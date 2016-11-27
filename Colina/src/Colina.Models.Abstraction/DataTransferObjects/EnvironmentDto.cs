@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 
-namespace Colina.Data.Repositories.DataTransfersObjects
+namespace Colina.Models.Abstraction.DataTransferObjects
 {
     public class EnvironmentDto
     {

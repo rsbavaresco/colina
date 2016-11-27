@@ -1,12 +1,10 @@
 ﻿using Colina.Language.Abstraction.Interfaces;
-using Colina.Language.Domain;
 using Colina.Models.Abstraction.Actions;
+using Colina.Models.Abstraction.DataTransferObjects;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Colina.Data.Repositories.DataTransfersObjects;
 
 namespace Colina.Language.CoreNLP.Analysers
 {

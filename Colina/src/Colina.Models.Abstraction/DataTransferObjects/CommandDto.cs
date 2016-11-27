@@ -1,12 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Colina.Data.Repositories.DataTransfersObjects
-{    
+namespace Colina.Models.Abstraction.DataTransferObjects
+{
     public class CommandDto
     {        
         public ObjectId Id { get; set; }

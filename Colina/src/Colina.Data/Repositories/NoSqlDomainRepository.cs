@@ -1,10 +1,8 @@
-﻿using Colina.Data.Repositories.DataTransfersObjects;
-using Colina.Data.Repositories.NoSql;
-using Colina.Data.Settings;
+﻿using Colina.Data.Settings;
 using Colina.Language.Domain.Repositories;
+using Colina.Models.Abstraction.DataTransferObjects;
 using Microsoft.Extensions.Caching.Memory;
 using MongoDB.Driver;
-using System;
 using System.Threading.Tasks;
 
 namespace Colina.Data.Repositories
@@ -13,15 +11,12 @@ namespace Colina.Data.Repositories
     {
         private readonly IMongoDatabase _database;
         private readonly IMemoryCache _cache;
-        private readonly EnvironmentNoSqlRepository _environmentNoSqlRepository;
 
         public NoSqlDomainRepository(
             NoSqlSettings settings, 
-            IMemoryCache cache, 
-            EnvironmentNoSqlRepository environmentNoSqlRepository)
+            IMemoryCache cache)
         {
             _cache = cache;
-            _environmentNoSqlRepository = environmentNoSqlRepository;
 
             var client = new MongoClient(settings.ConnectionString);
             _database = client.GetDatabase("colina");
@@ -44,21 +39,6 @@ namespace Colina.Data.Repositories
             _cache.Set("images", images);            
             
             //var query = Query<Command>.Exists(c => !string.IsNullOrEmpty(c.PtBR));
-        }
-
-        public EnvironmentDto GetEnvironment(Guid userSession)
-        {
-            return _environmentNoSqlRepository.GetByUserSession(userSession);
-        }
-
-        public void InsertEnvironment(EnvironmentDto environment)
-        {
-            _environmentNoSqlRepository.Insert(environment);
-        }
-
-        public void UpdateEnvironment(EnvironmentDto environment)
-        {
-            _environmentNoSqlRepository.Update(environment);
         }
     }
 }

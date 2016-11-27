@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace Colina.Data.Repositories.DataTransfersObjects
+namespace Colina.Models.Abstraction.DataTransferObjects
 {
     public class EnvironmentItemDto
     {

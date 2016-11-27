@@ -1,7 +1,6 @@
 ﻿using Colina.Abstraction.Bootstrap.Extensions;
-using Colina.Data.Repositories.DataTransfersObjects;
-using Colina.Data.Repositories.NoSql;
-using Colina.Data.Settings;
+using Colina.Language.Domain.Repositories;
+using Colina.Models.Abstraction.DataTransferObjects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,6 +13,7 @@ namespace Colina.Test.Data
     {
         private readonly IServiceProvider _provider;
         private readonly IConfigurationRoot _configuration;
+        private readonly IEnvironmentRepository _environmentRepository;
 
         public NoSqlRepositoryTest()
         {
@@ -26,17 +26,17 @@ namespace Colina.Test.Data
             var services = new ServiceCollection();
             services.AddColinaModules(_configuration);
             _provider = services.BuildServiceProvider();
+            _environmentRepository = _provider.GetRequiredService<IEnvironmentRepository>();
         }
 
         [Fact]
         public void GetEnvironments()
         {
             //arrange
-            var domainRepository = new EnvironmentNoSqlRepository(_provider.GetRequiredService<NoSqlSettings>());
             var sessionId = Guid.Parse("07a8d50f-3f87-4335-b9ad-6801d9af08e2");
 
             //act
-            var environment = domainRepository.GetByUserSession(sessionId);
+            var environment = _environmentRepository.GetByUserSession(sessionId);
             
             //assert
             Assert.Equal(environment.SessionId, sessionId);
@@ -46,17 +46,16 @@ namespace Colina.Test.Data
         public void InsertEnvironment()
         {
             //arrange
-            var domainRepository = new EnvironmentNoSqlRepository(_provider.GetRequiredService<NoSqlSettings>());
             var sessionId = Guid.NewGuid();
             var imageUniqueId = Guid.NewGuid();
             var newEnvironment = EnvironmentDto.Create(sessionId);
             newEnvironment.AddItem(EnvironmentItemDto.Create(imageUniqueId, 30, 25));
 
             //act
-            domainRepository.Insert(newEnvironment);
+            _environmentRepository.Insert(newEnvironment);
 
             //assert
-            var environment = domainRepository.GetByUserSession(sessionId);
+            var environment = _environmentRepository.GetByUserSession(sessionId);
             Assert.Equal(environment.SessionId, sessionId);
             Assert.Equal(environment.Items.Count, 1);
             Assert.Equal(environment.Items[0].ImageUniqueId, imageUniqueId);
@@ -67,17 +66,16 @@ namespace Colina.Test.Data
         {
             //arrange
             var random = new Random();
-            var domainRepository = new EnvironmentNoSqlRepository(_provider.GetRequiredService<NoSqlSettings>());
             var sessionId = Guid.Parse("07a8d50f-3f87-4335-b9ad-6801d9af08e2");
-            var existingEnvironment = domainRepository.GetByUserSession(sessionId);
+            var existingEnvironment = _environmentRepository.GetByUserSession(sessionId);
             var newItem = EnvironmentItemDto.Create(imageUniqueId: Guid.NewGuid(), x: random.Next(0, 300), y: random.Next(0, 300));
 
             //act
             existingEnvironment.AddItem(newItem);
-            domainRepository.Update(existingEnvironment);
+            _environmentRepository.Update(existingEnvironment);
 
             //assert
-            var environment = domainRepository.GetByUserSession(sessionId);
+            var environment = _environmentRepository.GetByUserSession(sessionId);
             Assert.Equal(environment.SessionId, sessionId);
             Assert.Equal(environment.Items.Count, existingEnvironment.Items.Count);
             for (int i = 0; i < existingEnvironment.Items.Count; i++)

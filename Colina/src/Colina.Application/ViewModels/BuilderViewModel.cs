@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Colina.Language.ViewModels
 {
     public class BuilderViewModel
     {
         public byte[] Content { get; set; }
+        public Guid PaletteObject { get; set; }
 
-        public BuilderViewModel(byte[] content)
+        public BuilderViewModel(byte[] content, Guid paletteObject)
         {
             Content = content;
+            PaletteObject = paletteObject;
         }
     }
 }
