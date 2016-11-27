@@ -40,7 +40,7 @@ namespace Colina.Application.Services
             // TODO: Desenhar o ambiente informando o arquivo .col para o drawer
             _drawer.Draw(environment);
 
-            var bytes = _reader.Read($"{environment.SessionId}.col");
+            var bytes = _reader.Read($"{environment.SessionId}.png");
 
             return new BuilderViewModel(bytes, drawing.Object.Identifier);
         }
