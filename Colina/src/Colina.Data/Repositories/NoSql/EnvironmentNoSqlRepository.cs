@@ -1,5 +1,6 @@
 ﻿using Colina.Data.Repositories.DataTransfersObjects;
 using Colina.Data.Settings;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Colina.Data.Repositories.NoSql
             if (session.Equals(Guid.Empty))
                 throw new ArgumentException(nameof(session));
 
-            var filter = Builders<EnvironmentDto>.Filter.Eq("session_id", session);
+            var filter = Builders<EnvironmentDto>.Filter.Eq("sessionId", session.ToString());
             var environment = _environmentsCollection.Find(filter).SingleOrDefault();
 
             return environment;
@@ -41,8 +42,11 @@ namespace Colina.Data.Repositories.NoSql
             if (environment == null)
                 throw new ArgumentNullException(nameof(environment));
 
-            var filter = Builders<EnvironmentDto>.Filter.Eq("session_id", environment.SessionId);
-            _environmentsCollection.ReplaceOne(filter, environment);
+            var filter = Builders<EnvironmentDto>.Filter.Eq("sessionId", environment.SessionId.ToString());
+            var update = Builders<EnvironmentDto>.Update
+                            .Set("sessionId", environment.SessionId.ToString())
+                            .Set("items", environment.Items);
+            _environmentsCollection.UpdateOne(filter, update);
         }
     }
 }
