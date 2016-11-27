@@ -36,32 +36,6 @@ namespace Colina.Language.Factories
         private static Models.Abstraction.Designs.Position GetAbsolutePosition(AbsolutePosition position)
         {
             throw new NotImplementedException();
-
-            switch (position.Direction)
-            {
-                //case Direction.Back:
-
-                //    break;
-
-                case Direction.Center:
-
-                    break;
-
-                case Direction.Down:
-
-                    break;
-
-                //case Direction.Front:
-
-                //    break;
-
-                case Direction.Up:
-                    
-                    break;
-
-                default:
-                    throw new ArgumentException(nameof(position));
-            }
         }
     }
 }
