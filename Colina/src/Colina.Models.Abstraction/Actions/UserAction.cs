@@ -29,11 +29,26 @@ namespace Colina.Models.Abstraction.Actions
             Position = new AbsolutePosition(quadrant, (Direction)Enum.Parse(typeof(Direction), direction));
         }
 
-        public void ChangeRelativePosition(string unity, double value, string direction)
+        public void ChangeRelativePosition(double value, Direction direction)
         {
-            if (string.IsNullOrEmpty(direction)) throw new ArgumentException(nameof(direction));
+            var current = (Position as RelativePosition);
 
-            Position = new RelativePosition(unity, value, (Direction)Enum.Parse(typeof(Direction), direction));
+            if (current != null)
+            {
+                current.ChangeValue(value);
+                current.ChangeDirection(direction);
+                return;
+            }
+
+            Position = new RelativePosition("pixels", value, direction);                       
+        }
+
+        public void ChangeRelativePositionDirection(Direction direction)
+        {
+            if (Position == null)
+                Position = new RelativePosition("pixels", default(double), direction);
+            else
+                Position.ChangeDirection(direction);
         }
     }
 }

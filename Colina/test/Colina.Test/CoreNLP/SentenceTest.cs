@@ -2,6 +2,7 @@
 using Colina.Application.Services;
 using Colina.Language.Abstraction.Interfaces;
 using Colina.Language.Domain.Repositories;
+using Colina.Models.Abstraction.Actions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -57,6 +58,28 @@ namespace Colina.Test.CoreNLP
         }
 
         [Fact]
+        public void RecognizeSentenceWithRelativePositionTest()
+        {
+            //arrange
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            var repository = _provider.GetRequiredService<IDomainRepository>();
+            repository.CreateDataSetCache();
+
+            var recognizer = _provider.GetService<ISentenceRecognizer>();
+
+            //act
+            var userAction = recognizer.Recognize("Move a chair 5 pixel forward");
+
+            //assert
+            Assert.Equal(userAction.Command.Identifier, "Move");
+            Assert.Equal(userAction.Object.Identifier, Guid.Parse("0c535551-c29c-47d4-bba9-011d67eee14f"));
+            Assert.Equal(userAction.Position.Direction, Direction.Back);
+            var relative = (userAction.Position as RelativePosition);
+            Assert.NotNull(relative);
+            Assert.Equal(relative.Value, 5);
+        }
+
+        [Fact]
         public void BuilderTest()
         {
             //arrange
@@ -68,7 +91,7 @@ namespace Colina.Test.CoreNLP
             var service = _provider.GetService<BuilderService>();
 
             //act
-            var builderContent = service.Build(sessionId, "Move a chair one centimeter in front");
+            var builderContent = service.Build(sessionId, "Move a chair 3 pixels back");
         }
     }
 }

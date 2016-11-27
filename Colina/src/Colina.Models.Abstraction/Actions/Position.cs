@@ -18,5 +18,10 @@ namespace Colina.Models.Abstraction.Actions
         {
 
         }
+
+        public void ChangeDirection(Direction direction)
+        {
+            Direction = direction;
+        }
     }
 }

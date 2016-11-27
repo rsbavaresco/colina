@@ -7,10 +7,14 @@ namespace Colina.Models.Abstraction.Actions
 {
     public enum Direction
     {
-        Back = 1,
-        Up = 2,
-        Front = 3,
-        Down = 4,
-        Center = 5
+        Front = 0,
+        Back, 
+        Up,         
+        Down,
+        Center,
+        Forward,
+        Backward,
+        Right,
+        Left,
     }
 }
