@@ -2,12 +2,19 @@
 using System;
 using System.Linq;
 using Colina.Models.Abstraction.Actions;
-using Colina.Language.Domain;
+using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
+using Colina.Models.Abstraction.DataTransferObjects;
 
 namespace Colina.Language.NLPNet.Analysers
 {
     public class PartOfSpeechAnalyser : IPartOfSpeechAnalyser
     {
+        private readonly IMemoryCache _cache;
+        public PartOfSpeechAnalyser(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
         public void Analyse(string word, string pos, ref UserAction userAction)
         {
             userAction = userAction ?? new UserAction();
@@ -18,20 +25,25 @@ namespace Colina.Language.NLPNet.Analysers
             switch (pos)
             {
                 case "V":
-
-                    if (PortugueseDomain.AvaiableCommands.Contains(word))
+                    var commands = _cache.Get("commands") as List<CommandDto>;
+                    if (commands.Any(c => c.PtBR.Equals(word.ToLower())))
                         userAction.ChangeCommand(word);
+                                        
                     break;
 
                 case "N":
-                    var index = PortugueseDomain.AvaiablePaletteObjects.ToList().IndexOf(word.ToLower());
-                    if (index >= 0)
-                        userAction.ChangeObject(PortugueseDomain.AvaiablePaletteObjectsIds[index]);
+                    var images = _cache.Get("images") as List<ImageDto>;
+
+                    var uniqueId = images.Where(i => i.PtBR.Equals(word.ToLower())).Select(i => i.UniqueId).FirstOrDefault();
+                    if (!Guid.Empty.Equals(uniqueId))
+                    {
+                        userAction.ChangeObject(uniqueId);                        
+                    }
                     else
                     {
-                        Direction direction;
-                        TryRecognizeDirection(word, out direction);
-                        userAction.ChangeRelativePositionDirection(direction);
+                        Direction direction = default(Direction);
+                        if (TryRecognizeDirection(word, out direction))
+                            userAction.ChangeRelativePositionDirection(direction);
                     }
                         
                     break;
@@ -44,8 +56,9 @@ namespace Colina.Language.NLPNet.Analysers
             }
         }
 
-        private void TryRecognizeDirection(string word, out Direction direction)
+        private bool TryRecognizeDirection(string word, out Direction direction)
         {
+            bool recognized = true;
             switch (word.ToLower())
             {
                 case "direita":
@@ -66,8 +79,10 @@ namespace Colina.Language.NLPNet.Analysers
 
                 default:
                     direction = default(Direction);
+                    recognized = false;
                     break;
             }
+            return recognized;
         }
     }
 }

@@ -61,10 +61,10 @@ namespace Colina.Language.Factories
                         return new Position(_existingPaletteObjectPosition.X + position.Value, _existingPaletteObjectPosition.Y);
 
                     case Models.Abstraction.Actions.Direction.Up:
-                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y - position.Value);
+                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y + position.Value);
 
                     case Models.Abstraction.Actions.Direction.Down:
-                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y + position.Value);
+                        return new Position(_existingPaletteObjectPosition.X, _existingPaletteObjectPosition.Y - position.Value);
 
                     default:
                         return GetDefaultPosition();

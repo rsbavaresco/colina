@@ -54,6 +54,7 @@ namespace Colina.Language.CoreNLP.Analysers
                         break;
                     }
 
+                case "RP":
                 case "RB":
                 case "IN":
                     {

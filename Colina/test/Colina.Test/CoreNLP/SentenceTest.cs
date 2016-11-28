@@ -68,7 +68,7 @@ namespace Colina.Test.CoreNLP
             var recognizer = _provider.GetService<ISentenceRecognizer>();
 
             //act
-            var userAction = recognizer.Recognize("Move a chair 5 pixel forward");
+            var userAction = recognizer.Recognize("Move a chair 5 pixel to right");
 
             //assert
             Assert.Equal(userAction.Command.Identifier, "Move");

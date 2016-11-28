@@ -25,6 +25,7 @@ namespace Colina.Language.NLPNet.Recognizers
             foreach (var token in tokens.Split(' '))
             {
                 var parts = token.Split('_');
+                if (parts == null || parts.Length < 2) continue;
 
                 var word = parts[0];
                 var pos = parts[1];

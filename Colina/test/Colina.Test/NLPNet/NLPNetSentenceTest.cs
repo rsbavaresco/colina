@@ -21,9 +21,9 @@ namespace Colina.Test.NLPNet
             _configuration = new ConfigurationBuilder()
                                 .AddInMemoryCollection(new List<KeyValuePair<string, string>>()
                                 {
-                                    new KeyValuePair<string, string>("nlpnet:ModelsPath", "C:\\Users\\cmendes\\Source\\Repos\\colina\\Colina\\resources\\data\\"),
+                                    new KeyValuePair<string, string>("nlpnet:ModelsPath", "C:\\Users\\guigo\\Source\\Repos\\colina\\Colina\\resources\\data\\"),
                                     new KeyValuePair<string, string>("nlpnet:PythonPath", "C:\\Python27\\python.exe"),
-                                    new KeyValuePair<string, string>("nlpnet:PythonAppPath", "C:\\Users\\cmendes\\Source\\Repos\\colina\\Colina\\resources\\nlpnet-tag.py")
+                                    new KeyValuePair<string, string>("nlpnet:PythonAppPath", "C:\\Users\\guigo\\Source\\Repos\\colina\\Colina\\resources\\nlpnet-tag.py")
                                 }).Build();
 
             var services = new ServiceCollection();
