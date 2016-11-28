@@ -49,8 +49,7 @@ app.controller('MainController', [
             };
 
             recognizer.onresult = function (event) {
-                recognizer.stop();
-                controller.appState.speechApi = 'stopped';
+                controller.stopListening();
 
                 if (typeof(event.results) === 'undefined') {
                     return;
@@ -66,21 +65,20 @@ app.controller('MainController', [
                         controller.resultUrl = data;
                     }).finally(function () {
                         controller.appState.backend = 'iddle';
-                        recognizer.start();
+                        controller.startListening();
                     });
                 }
             };
 
             recognizer.onerror = function (event) {
-                if (event.error == 'no-speech') {
-                    try {
-                        recognizer.start();
-                    }
-                    catch (err) {};
-                }
-                else {
+                if (event.error == 'no-speech')
+                    controller.startListening();
+                else
                     console.log(event.error);
-                }
+            };
+
+            recognizer.onnomatch = function (event) {
+                controller.startListening();
             };
 
             recognizer.start();

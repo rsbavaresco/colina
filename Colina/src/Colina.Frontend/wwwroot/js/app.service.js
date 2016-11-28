@@ -50,7 +50,7 @@ app.service('colinaService', ['imageSource', 'apiUrl', '$http', '$window', '$q',
             };
         },
         sendCommand: function (command, language) {
-            $http.post(
+            return $http.post(
                 apiUrl,
                 { value: command },
                 {

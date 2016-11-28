@@ -29,7 +29,7 @@
     </md-sidenav>
 
     <md-content layout="column" flex layout-padding>
-        <md-whitefrane class="md-whiteframe-10dp" layout="column" layout-align="start center" flex>
+        <md-whitefrane class="md-whiteframe-10dp" layout="column" layout-align="center center" flex>
             <img ng-src="{{ctrl.resultUrl}}" />
         </md-whitefrane>
     </md-content>
@@ -43,7 +43,7 @@
         
         <md-content md-layout-padding>
             <md-list>
-                <md-list-item ng-repeat="item in ctrl.commandHistory">
+                <md-list-item ng-repeat="item in ctrl.commandHistory track by $index">
                     <p>{{item}}</p>
                     <md-divider></md-divider>
                 </md-list-item>
