@@ -1,0 +1,53 @@
+<md-progress-linear mode="query" ng-if="ctrl.appState.backend == 'rendering'"></md-progress-linear>
+<md-toolbar layout="row">
+    <div class="md-toolbar-tools">
+        <h1 flex>
+            <span>Colina</span>
+        </h1>
+        <span ng-if="ctrl.appState.speechApi == 'listening'">{{ctrl.labels.listening[ctrl.language]}}...</span>
+        <md-button ng-if="ctrl.appState.speechApi == 'listening'" class="md-raised" ng-click="ctrl.stopListening()">{{ctrl.labels.stop[ctrl.language]}}</md-button>
+        <md-button ng-if="ctrl.appState.speechApi == 'stopped'" class="md-raised" ng-click="ctrl.startListening()">{{ctrl.labels.start[ctrl.language]}}</md-button>
+    </div>
+</md-toolbar>
+
+<section layout="row" flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="leftnav" md-is-locked-open="true" md-whiteframe="4">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ctrl.labels.paletteTitle[ctrl.language]}}</h2>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-padding>
+            <md-list>
+                <md-list-item ng-repeat="(key, value) in ctrl.palette">
+                    <img ng-src="{{value}}" class="md-avatar" />
+                    <div class="md-list-item-text">{{ctrl.labels[key][ctrl.language]}}</div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+
+    <md-content layout="column" flex layout-padding>
+        <md-whitefrane class="md-whiteframe-10dp" layout="column" layout-align="start center" flex>
+            <img ng-src="{{ctrl.resultUrl}}" />
+        </md-whitefrane>
+    </md-content>
+    
+    <md-sidenav class="md-sidenav-right" md-component-id="rightnav" md-is-locked-open="true" md-whiteframe="4">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ctrl.labels.historyTitle[ctrl.language]}}</h2>
+            </div>
+        </md-toolbar>
+        
+        <md-content md-layout-padding>
+            <md-list>
+                <md-list-item ng-repeat="item in ctrl.commandHistory">
+                    <p>{{item}}</p>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+</section>

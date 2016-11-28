@@ -1,96 +1,147 @@
-﻿var app = angular.module('colinaApp');
+var app = angular.module('colinaApp');
 
-app.value('imageSource', 'http://localhost:5000/images/');
+app.value('imageSource', 'images/');
+app.value('apiUrl', 'http://localhost:59483/api/Builder');
 
-app.service('colinaService', ['imageSource', '$http', function (imageSource, $http) {
-    var currentLanguage = 'pt-BR';
+app.service('colinaService', ['imageSource', 'apiUrl', '$http', '$window', '$q', '$timeout', function (imageSource, apiUrl, $http, $window, $q, $timeout) {
+    var sessionId = (function () {
+        var fmt = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
 
-    var objectNames = {
-        'en-US': {
-            'table': 'Table',
-            'chair': 'Chair',
-            'bed': 'Bed',
-            'shelf': 'Shelf',
-            'book': 'Book',
-            'desk': 'Desk',
-            'chandelier': 'Chandelier',
-            'picture-frame': 'Picture-frame',
-            'computer': 'Computer',
-            'lampshade': 'Lampshade',
-            'nightstand': 'Nightstand'
-        },
-        'pt-BR': {
-            'table': 'Mesa',
-            'chair': 'Cadeira',
-            'bed': 'Cama',
-            'shelf': 'Estante',
-            'book': 'Livro',
-            'desk': 'Escrivaninha',
-            'chandelier': 'Lustre',
-            'picture-frame': 'Quadro',
-            'computer': 'Computador',
-            'lampshade': 'Abajur',
-            'nightstand': 'Criado Mudo'
-        }
-    };
-
+        return fmt.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }());
+    
     return {
-        getPalette: function () {
+        getLanguages: function () {
             return [
                 {
-                    name: objectNames[currentLanguage]['table'],
-                    imageUrl: imageSource + 'table.jpg'
+                    name: 'Português - Brasileiro',
+                    code: 'pt-BR',
+                    iconPath: imageSource + 'pt-br.png'
                 },
                 {
-                    name: objectNames[currentLanguage]['chair'],
-                    imageUrl: imageSource + 'chair.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['bed'],
-                    imageUrl: imageSource + 'bed.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['shelf'],
-                    imageUrl: imageSource + 'shelf.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['book'],
-                    imageUrl: imageSource + 'book.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['desk'],
-                    imageUrl: imageSource + 'desk.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['chandelier'],
-                    imageUrl: imageSource + 'chandelier.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['picture-frame'],
-                    imageUrl: imageSource + 'picture-frame.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['computer'],
-                    imageUrl: imageSource + 'computer.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['lampshade'],
-                    imageUrl: imageSource + 'lampshade.jpg'
-                },
-                {
-                    name: objectNames[currentLanguage]['nightstand'],
-                    imageUrl: imageSource + 'nightstand.jpg'
+                    name: 'English - USA',
+                    code: 'en-US',
+                    iconPath: imageSource + 'en-us.png'
                 }
-            ]
+            ];
         },
-        getLanguage: function () {
-            return currentLanguage;
+        checkLanguage: function (code) {
+            if (code == 'pt-BR' || code == 'en-US')
+                return true;
+            else
+                return false;
         },
-        setLanguage: function (language) {
-            currentLanguage = language;
+        getPalette: function (language) {
+            return {
+                'table': imageSource + 'table.jpg',
+                'chair': imageSource + 'chair.jpg',
+                'bed': imageSource + 'bed.jpg',
+                'shelf': imageSource + 'shelf.jpg',
+                'book': imageSource + 'book.jpg',
+                'desk': imageSource + 'desk.jpg',
+                'chandelier': imageSource + 'chandelier.jpg',
+                'picture-frame': imageSource + 'picture-frame.jpg',
+                'computer': imageSource + 'computer.jpg',
+                'lampshade': imageSource + 'lampshade.jpg',
+                'nightstand': imageSource + 'nightstand.jpg'
+            };
         },
-        sendCommand: function (command) {
-            $http.post('http://localhost:59483/api/Builder', { value: command });
+        sendCommand: function (command, language) {
+            $http.post(
+                apiUrl,
+                { value: command },
+                {
+                    headers: {
+                        'Colina-Session-ID': sessionId,
+                        'Accept-Language': language
+                    },
+                    responseType: 'arraybuffer'
+                }).then(function (data) {
+                    var blob = new Blob([data.data], { type: 'image/png' });
+                    var objectUrl = URL.createObjectURL(blob);
+                    
+                    return objectUrl;
+                });
         }
+    };
+}]);
+
+app.service('translateService', [function () {
+    var dictionary = {
+        'paletteTitle': {
+            'pt-BR': 'Paleta de objetos',
+            'en-US': 'Object palette'
+        },
+        'table': {
+            'pt-BR': 'Mesa',
+            'en-US': 'Table'
+        },
+        'chair': {
+            'pt-BR': 'Cadeira',
+            'en-US': 'Chair'
+        },
+        'bed': {
+            'pt-BR': 'Cama',
+            'en-US': 'Bed'
+        },
+        'shelf': {
+            'pt-BR': 'Estante',
+            'en-US': 'Shelf'
+        },
+        'book': {
+            'pt-BR': 'Livro',
+            'en-US': 'Book'
+        },
+        'desk': {
+            'pt-BR': 'Escrivaninha',
+            'en-US': 'Desk'
+        },
+        'chandelier': {
+            'pt-BR': 'Lustre',
+            'en-US': 'Chandelier'
+        },
+        'picture-frame': {
+            'pt-BR': 'Quadro',
+            'en-US': 'Picture-frame'
+        },
+        'computer': {
+            'pt-BR': 'Computador',
+            'en-US': 'Computer'
+        },
+        'lampshade': {
+            'pt-BR': 'Abajur',
+            'en-US': 'Lampshade'
+        },
+        'nightstand': {
+            'pt-BR': 'Criado Mudo',
+            'en-US': 'Nightstand'
+        },
+        'stop': {
+            'pt-BR': 'Parar',
+            'en-US': 'Stop'
+        },
+        'start': {
+            'pt-BR': 'Iniciar',
+            'en-US': 'Start'
+        },
+        'listening': {
+            'pt-BR': 'Ouvindo',
+            'en-US': 'Listening'
+        },
+        'historyTitle': {
+            'pt-BR': 'Histórico de comandos',
+            'en-US': 'Command history'
+        },
+        'example': {
+            'pt-BR': '',
+            'en-US': ''
+        }
+    };
+    
+    return {
+        dictionary: dictionary
     };
 }]);

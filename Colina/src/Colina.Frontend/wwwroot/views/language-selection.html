@@ -1,0 +1,16 @@
+<md-toolbar layout="row">
+    <h1 class="md-toolbar-tools" flex>Colina</h1>
+</md-toolbar>
+
+<section layout="row" flex>
+    <md-content layout="row" layout-align="center center" flex>
+        <div layout="column" md-whiteframe="1" style="width: 300px;">
+            <md-list>
+                <md-list-item ng-repeat="language in ctrl.languages" ng-click="ctrl.selectLanguage(language.code)">
+                    <img alt="{{ language.name }}" ng-src="{{ language.iconPath }}" class="md-avatar" />
+                    <p>{{ language.name }}</p>
+                </md-list-item>
+            </md-list>
+        </div>
+    </md-content>
+</section>
