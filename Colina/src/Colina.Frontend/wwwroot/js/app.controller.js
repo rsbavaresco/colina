@@ -14,10 +14,9 @@ app.controller('MainController', [
     '$routeParams',
     '$location',
     '$window',
-    '$timeout',
     'colinaService',
     'translateService',
-    function ($routeParams, $location, $window, $timeout, colinaService, translateService) {
+    function ($routeParams, $location, $window, colinaService, translateService) {
         var controller = this;
     
         controller.language = $routeParams.lang;
@@ -51,7 +50,7 @@ app.controller('MainController', [
             recognizer.onresult = function (event) {
                 controller.stopListening();
 
-                if (typeof(event.results) === 'undefined') {
+                if (typeof (event.results) === 'undefined') {
                     return;
                 }
 
